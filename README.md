@@ -1,5 +1,5 @@
 # 🌌 ChyCheung.me
-Welcome to my personal portfolio, crafted with the minimalist and whimsical charm of the <a href="[#-milky-way](https://github.com/ttomczak3/Milky-Way)">Milky-Way</a> theme. Here, you'll encounter a modest selection of my web development projects. If there are areas for improvement or points that require attention, I would greatly appreciate any critical feedback and guidance from esteemed experts.
+Welcome to my personal portfolio, crafted with the minimalist and whimsical charm of the <a href="https://github.com/ttomczak3/Milky-Way">Milky-Way</a> theme. Here, you'll encounter a modest selection of my web development projects. If there are areas for improvement or points that require attention, I would greatly appreciate any critical feedback and guidance from esteemed experts.
 
 ## 🔥 Features
 - [x] Simple and clean design, perfect for showcasing your work.
