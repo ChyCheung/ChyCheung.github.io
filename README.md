@@ -1,4 +1,4 @@
-# 🌌 ChyCheung.me - My Personal Portfolio
+# 🌌 ChyCheung.me
 Welcome to my personal portfolio, crafted with the minimalist and whimsical charm of the <a href="#-milky-way">Milky-Way</a> theme. Here, you'll encounter a modest selection of my web development projects. If there are areas for improvement or points that require attention, I would greatly appreciate any critical feedback and guidance from esteemed experts.
 
 # 🌌 Milky-Way
