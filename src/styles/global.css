@@ -213,6 +213,18 @@ li {
   text-align: center;
 }
 
+.left {
+  text-align: left;
+}
+
+.link {
+  color: var(--text-link);
+  text-decoration: none;
+}
+.link:hover {
+  text-decoration: underline;
+}
+
 .pro-img {
   border-radius: 16px;
   margin-top: 10px;

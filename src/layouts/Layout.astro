@@ -1,48 +1,156 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
-import { fade } from 'astro:transitions';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import '../styles/global.css';
+import { ViewTransitions } from "astro:transitions";
+import { fade } from "astro:transitions";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+// import Firework from "../components/Firework.astro";
+import "../styles/global.css";
 const { pageTitle } = Astro.props;
 ---
-<!DOCTYPE html>
-<html transition:animate="none" lang="en">
-	<head>
-        <meta charset="utf-8" />
-        <meta name="description" content="Astro description">
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Pacifico&display=swap" as="style">
-        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Pacifico&display=swap" rel="stylesheet">       
-        <meta name="generator" content={Astro.generator} />
-        <title>{pageTitle}</title>
-        <ViewTransitions />
-	</head>
-	<body>
-        <Header />
-        <main transition:animate={fade({ duration: '0.2s' })} >
-	    <slot />
-            <Footer />
-        </main>
-        <script>
-            function colorMode() {
-                if (
-                    localStorage.theme === "light" ||
-                    (!("theme" in localStorage) &&
-                    window.matchMedia("(prefers-color-scheme: light)").matches)
-                ) {
-                    document.documentElement.classList.add("light");
-                } else {
-                    document.documentElement.classList.remove("light");
-                }
-              }
-            
-            colorMode();
-            document.addEventListener('astro:after-swap', colorMode);
-        </script>
-	</body>
-</html>
 
+<!doctype html>
+<html transition:animate="none" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Pacifico&display=swap"
+      as="style"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+  </head>
+
+  <ViewTransitions />
+
+  <body>
+    <Header />
+    <main transition:animate={fade({ duration: "0.2s" })}>
+      <slot />
+      <Footer />
+    </main>
+    <script>
+      function colorMode() {
+        if (
+          localStorage.theme === "light" ||
+          (!("theme" in localStorage) &&
+            window.matchMedia("(prefers-color-scheme: light)").matches)
+        ) {
+          document.documentElement.classList.add("light");
+        } else {
+          document.documentElement.classList.remove("light");
+        }
+      }
+
+      colorMode();
+      document.addEventListener("astro:after-swap", colorMode);
+    </script>
+    <script>
+      // A list of all possible colors
+      const COLORS = [
+        "rgba(255,182,185,.9)",
+        "rgba(250,227,217,.9)",
+        "rgba(187,222,214,.9)",
+        "rgba(138,198,209,.9)",
+      ];
+      // Defines the particle number
+      const PARTICLES_NUMBER = 30;
+
+      function createParticles(x, y) {
+        const element = document.createElement("div");
+        let w = Math.random() * (35 - 30) + 30;
+        let h = w;
+        element.style.width = `${w}px`;
+        element.style.height = `${h}px`;
+        element.style.borderRadius = "50%"; // The elements are in absolute position
+
+        element.style.position = "fixed"; // Change to fixed to avoid affecting document flow
+        element.style.top = `${y}px`;
+        element.style.left = `${x}px`; // We want our cursor to be centered in the square
+        element.style.transform = "translate(-50%, -50%)"; // Get a color randomly
+        element.style.backgroundColor =
+          COLORS[Math.floor(Math.random() * COLORS.length)];
+        const animation = element.animate(
+          [
+            {
+              // Math.random() - 0.5 返回一个介于 -0.5 和 0.5 之间的数字
+              transform: `translate(${(Math.random() - 0.5) * 300}px, 
+                ${(Math.random() - 0.5) * 300}px) rotate(${Math.random() * 360}deg)`, // 旋转角度限制在 0 到 360 度之间
+              width: "0px",
+              height: "0px",
+              // opacity: 0.1,
+              easing: "ease-in-out", // 更高效的动画曲线
+            },
+          ],
+          {
+            duration: Math.floor(Math.random() * (600 - 400) + 400), // 随机持续时间介于 400 和 600 之间
+            fill: "forwards", // 确保动画结束后保持最终状态
+          }
+        );
+        // Remove the particle at the end of animation
+        animation.finished.then(() => element.remove());
+        document.body.appendChild(element);
+      }
+
+      function createCircle(x, y) {
+        const circle = document.createElement("div");
+        circle.classList.add("circle");
+        circle.style.left = `${x}px`;
+        circle.style.top = `${y}px`;
+        circle.style.width = "50px";
+        circle.style.height = "50px";
+        circle.style.borderRadius = "50%";
+        circle.style.position = "fixed";
+        circle.style.border = "2px outset #ff0000";
+        circle.style.opacity = "0.5";
+        circle.style.backgroundColor = "transparent";
+        circle.style.transform = "translate(-50%, -50%)";
+
+        // 创建动画
+        const radius = Math.random() * (250 - 200) + 200; // 随机半径
+        const animation1 = circle.animate(
+          [
+            {
+              width: `${radius}px`,
+              height: `${radius}px`,
+              // scale: 2,
+              opacity: 0,
+            },
+          ],
+          {
+            duration: Math.floor(Math.random() * (500 - 300) + 300) + 100, // 随机持续时间介于 400 和 600 之间
+            fill: "forwards", // 确保动画结束后保持最终状态
+            easing: "linear", // 更高效的动画曲线
+            iterations: 1, // 动画重复次数
+          }
+        );
+
+        // 动画结束后移除元素
+        animation1.finished.then(() => circle.remove());
+        document.body.appendChild(circle);
+      }
+
+      document.addEventListener("click", (e) => {
+        // Get the position of the cursor in the document
+        const { clientX: x, clientY: y } = e; // Create multiple particles
+
+        for (let i = 0; i < PARTICLES_NUMBER; i++) {
+          createParticles(x, y);
+        }
+
+        createCircle(x, y);
+      });
+    </script>
+  </body>
+
+
+</html>
