@@ -50,6 +50,12 @@ p {
   text-indent: 1rem;
 }
 
+@media only screen and (max-width: 768px) {
+  p {
+    font-size: 0.8rem;
+  }
+}
+
 small,
 li {
   font-family: var(--body);
